@@ -1,0 +1,57 @@
+{
+  "name": "newsline",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/newsline/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/newsline",
+        "main": "apps/newsline/src/main.ts",
+        "tsConfig": "apps/newsline/tsconfig.app.json",
+        "assets": ["apps/newsline/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/newsline/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "newsline:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "newsline:build:development"
+        },
+        "production": {
+          "buildTarget": "newsline:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/newsline/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/newsline/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
