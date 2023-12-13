@@ -1,7 +1,7 @@
 {
-  "name": "search",
+  "name": "file-storage",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/search/src",
+  "sourceRoot": "apps/file-storage/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -11,12 +11,11 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/apps/search",
-        "main": "apps/search/src/main.ts",
-        "tsConfig": "apps/search/tsconfig.app.json",
-        "assets": ["apps/search/src/assets"],
-        "isolatedConfig": true,
-        "webpackConfig": "apps/search/webpack.config.js"
+        "outputPath": "dist/apps/file-storage",
+        "main": "apps/file-storage/src/main.ts",
+        "tsConfig": "apps/file-storage/tsconfig.app.json",
+        "assets": ["apps/file-storage/src/assets"],
+        "webpackConfig": "apps/file-storage/webpack.config.js"
       },
       "configurations": {
         "development": {},
@@ -27,29 +26,26 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "search:build"
+        "buildTarget": "file-storage:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "search:build:development"
+          "buildTarget": "file-storage:build:development"
         },
         "production": {
-          "buildTarget": "search:build:production"
+          "buildTarget": "file-storage:build:production"
         }
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/search/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/search/jest.config.ts"
+        "jestConfig": "apps/file-storage/jest.config.ts"
       }
     }
   },

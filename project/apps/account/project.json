@@ -19,7 +19,6 @@
         "assets": [
           "apps/account/src/assets"
         ],
-        "isolatedConfig": true,
         "webpackConfig": "apps/account/webpack.config.js"
       },
       "configurations": {
@@ -46,12 +45,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": [
         "{options.outputFile}"
-      ],
-      "options": {
-        "lintFilePatterns": [
-          "apps/account/**/*.ts"
-        ]
-      }
+      ]
     },
     "test": {
       "executor": "@nx/jest:jest",
