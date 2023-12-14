@@ -1,5 +1,7 @@
 import { AuthUser } from '@project/shared/app/types';
 import { Entity } from '@project/shared/core';
+import { SALT_ROUNDS } from './blog-user.constant';
+import { genSalt, hash } from 'bcrypt';
 
 export class BlogUserEntity implements AuthUser, Entity<string> {
   id?: string;
@@ -34,5 +36,11 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
     this.regDate = data.regDate;
     this.publicCount = data.publicCount;
     this.followersCount = data.followersCount;
+  }
+
+  public async setPassword(password: string): Promise<BlogUserEntity> {
+    const salt = await genSalt(SALT_ROUNDS);
+    this.passwordHash = await hash(password, salt);
+    return this;
   }
 }
