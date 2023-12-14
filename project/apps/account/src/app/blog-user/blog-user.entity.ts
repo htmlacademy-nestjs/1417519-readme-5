@@ -1,7 +1,7 @@
 import { AuthUser } from '@project/shared/app/types';
 import { Entity } from '@project/shared/core';
 import { SALT_ROUNDS } from './blog-user.constant';
-import { genSalt, hash } from 'bcrypt';
+import { compare, genSalt, hash } from 'bcrypt';
 
 export class BlogUserEntity implements AuthUser, Entity<string> {
   id?: string;
@@ -42,5 +42,9 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
     const salt = await genSalt(SALT_ROUNDS);
     this.passwordHash = await hash(password, salt);
     return this;
+  }
+
+  public async comparePassword(password: string): Promise<boolean> {
+    return compare(password, this.passwordHash);
   }
 }
