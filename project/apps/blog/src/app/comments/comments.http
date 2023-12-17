@@ -1,0 +1,46 @@
+# Create a new comment
+POST http://localhost:3000/api/comments HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": "12333",
+  "postId": "456",
+  "commentText": "This is a comment",
+  "authorId": "789",
+  "authorName": "John",
+  "authorLastName": "Doe",
+  "authorEmail": "john.doe@example.com",
+  "createdDate": "2022-01-01T00:00:00.000Z"
+}
+###
+
+# Get comments
+GET http://localhost:3000/api/comments HTTP/1.1
+
+###
+
+# Get comment by ID
+GET http://localhost:3000/api/comments/12333 HTTP/1.1
+
+###
+
+# Get comment by ID
+DELETE  http://localhost:3000/api/comments/1233 HTTP/1.1
+
+###
+
+# Update comment
+Patch http://localhost:3000/api/comments/1233 HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": "12333",
+  "postId": "456",
+  "commentText": "This is a new comment text",
+  "authorId": "789",
+  "authorName": "John",
+  "authorLastName": "Doe",
+  "authorEmail": "john.doe@example.com",
+  "createdDate": "2022-01-01T00:00:00.000Z"
+}
+###
