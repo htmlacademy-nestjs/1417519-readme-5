@@ -3,6 +3,7 @@ import { PostsRepository } from './post.repository';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import dayjs from 'dayjs';
+import { PostEntity } from './post.entity';
 
 @Injectable()
 export class PostsService {
@@ -27,7 +28,10 @@ export class PostsService {
     likesCount: dto.likesCount,
     commentsCount: dto.commentsCount
   };
-  return this.postsRepository.save(post);
+
+  const postEntity = new PostEntity(post);
+  return this.postsRepository.save(postEntity);
+
   }
 
   public async getPosts() {

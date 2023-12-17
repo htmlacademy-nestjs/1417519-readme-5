@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CommentRepository } from './comment.repository';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import dayjs from 'dayjs';
+import { UpdateCommentDto } from './dto/update-comment.dto';
+import { CommentEntity } from './comment.entity';
 
 @Injectable()
 export class CommentsService {
@@ -20,7 +22,9 @@ export class CommentsService {
       authorEmail: dto.authorEmail,
       createdDate:  dayjs().toDate(),
     };
-    return this.commentRepository.save(comment);
+
+    const commentEntity = new CommentEntity(comment);
+    return this.commentRepository.save(commentEntity);
   }
 
   public async getComments() {
@@ -35,7 +39,7 @@ export class CommentsService {
     return comment
   }
 
-  public async updateComment(id: string, dto: CreateCommentDto) {
+  public async updateComment(id: string, dto: UpdateCommentDto) {
     const comment = await this.commentRepository.findById(id);
     if (!comment) {
       throw new Error(`Comment with id ${id} does not exist`);
