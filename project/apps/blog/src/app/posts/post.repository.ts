@@ -3,4 +3,4 @@ import { PostEntity } from './post.entity';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class PostRepository extends BaseMemoryRepository<PostEntity > {}
+export class PostsRepository extends BaseMemoryRepository<PostEntity > {}
