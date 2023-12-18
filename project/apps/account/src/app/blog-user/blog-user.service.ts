@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import { AUTH_USER_EXISTS } from "../authentication/authentication.constant";
 import { BlogUserEntity } from "./blog-user.entity";
 import { UpdateUserDto } from "./dto/update-user.dto";
-import { AuthUser } from "@project/shared/app/types";
+import { AuthUser, User } from "@project/shared/app/types";
 
 @Injectable()
 export class UsersService {
@@ -65,13 +65,13 @@ export class UsersService {
 
   public async update(id: string, dto: UpdateUserDto) {
     const { password, ...dtoProps } = dto;
-    const user: UpdateUserDto = dtoProps;
+    const user: Partial<User> = dtoProps;
 
     if (!await this.blogUserRepository.findById(id)) {
       throw new NotFoundException('User with id not found');
     }
     if (password) {
-      user.password = await hash(password, await genSalt(SALT_ROUNDS));;
+      user.passwordHash = await hash(password, await genSalt(SALT_ROUNDS));;
     }
     return this.blogUserRepository.update(id, user);
   }
