@@ -41,6 +41,7 @@ export class PostsController {
   @Get(':id')
   public async findOne(@Param('id') id: string) {
     const post = await this.postsService.getPostById(id);
+    console.log(1)
     return fillDto(PostRdo, post.toPOJO());
   }
 
