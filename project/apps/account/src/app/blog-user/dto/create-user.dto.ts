@@ -2,6 +2,8 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateUserDto {
 
+  id?: string;
+
   @ApiProperty({
     description: 'User unique address',
     example: 'user@user.ru'
@@ -25,4 +27,10 @@ export class CreateUserDto {
     example: '/images/user.png'
   })
   avatar: string;
+
+  regDate: Date;
+
+  publicCount: number;
+
+  followersCount: number;
 }

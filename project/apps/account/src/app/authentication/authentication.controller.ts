@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Param, Get, HttpStatus } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from '../blog-user/dto/create-user.dto';
 import { fillDto } from '@project/shared/helpers';
 import { UserRdo } from './rdo/user.rdo';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
@@ -37,18 +37,7 @@ export class AuthenticationController {
   })
   @Post('login')
   public async login(@Body() dto: LoginUserDto) {
-    const verifiedUser = await this.authService.verifyUser(dto);
+    const verifiedUser = await this.authService.login(dto);
     return fillDto(LoggedUserRdo, verifiedUser.toPOJO());
-  }
-
-  @ApiResponse({
-    type: UserRdo,
-    status: HttpStatus.OK,
-    description: 'User found'
-  })
-  @Get(':id')
-  public async show(@Param('id') id: string) {
-    const existUser = await this.authService.getUser(id);
-    return fillDto(UserRdo, existUser.toPOJO());
   }
 }
