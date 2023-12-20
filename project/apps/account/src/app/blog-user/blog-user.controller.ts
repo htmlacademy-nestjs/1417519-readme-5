@@ -18,7 +18,7 @@ export class UsersController {
     status: HttpStatus.OK,
     description: 'Создать пользователя',
   })
-  @Post()
+  @Post('register')
   public async create(@Body() dto: CreateUserDto) {
     const user = await this.usersService.create(dto);
     return fillDto(UserRdo, user.toPOJO());
@@ -44,16 +44,6 @@ export class UsersController {
     return fillDto(UserRdo, user.toPOJO());
   }
 
-  @ApiResponse({
-    type: UpdateUserDto,
-    status: HttpStatus.OK,
-    description: 'Обновить данные пользователей',
-  })
-  @Patch(':id')
-  public async update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
-    const user = await this.usersService.update(id, dto);
-    return fillDto(UserRdo, user.toPOJO());
-  }
 
   @ApiResponse({
     status: HttpStatus.OK,

@@ -1,0 +1,28 @@
+# Create a new user
+POST http://localhost:3000/api/blog-users/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "use2rr@notfound.local",
+  "avatar": "asdasd.png",
+  "userName": "Smith",
+  "password": "123456"
+}
+
+###
+
+
+# Get user by ID
+GET http://localhost:3000/api/blog-users/d0d2eb9e-3bcf-4a2b-a481-cb1998ed16a6 HTTP/1.1
+
+###
+
+# Get all users
+GET http://localhost:3000/api/blog-users HTTP/1.1
+
+###
+
+# Delete user by id
+DELETE http://localhost:3000/api/blog-users/087f8ffc-3550-4294-9549-beba37ed641e HTTP/1.1
+
+###

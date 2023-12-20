@@ -14,23 +14,6 @@ export class AuthenticationController {
     private readonly authService: AuthenticationService
   ) {}
 
-
-  @ApiResponse({
-    status: HttpStatus.CREATED,
-    description: 'The new user has been successfully created.'
-  })
-  @Post('register')
-  public async create(@Body() dto: CreateUserDto) {
-    const newUser = await this.authService.register(dto);
-    return fillDto(UserRdo, newUser.toPOJO());
-  }
-
-
-  @ApiResponse({
-    type: LoggedUserRdo,
-    status: HttpStatus.OK,
-    description: 'User has been successfully logged.'
-  })
   @ApiResponse({
     status: HttpStatus.UNAUTHORIZED,
     description: 'Password or Login is wrong.',

@@ -63,19 +63,6 @@ export class UsersService {
     return user;
   }
 
-  public async update(id: string, dto: UpdateUserDto) {
-    const { password, ...dtoProps } = dto;
-    const user: Partial<User> = dtoProps;
-
-    if (!await this.blogUserRepository.findById(id)) {
-      throw new NotFoundException('User with id not found');
-    }
-    if (password) {
-      user.passwordHash = await hash(password, await genSalt(SALT_ROUNDS));;
-    }
-    return this.blogUserRepository.update(id, user);
-  }
-
   public async delete(id: string) {
     if (!await this.blogUserRepository.findById(id)) {
       throw new NotFoundException('User with id not found');
