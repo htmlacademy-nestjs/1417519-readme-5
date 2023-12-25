@@ -41,10 +41,11 @@ export class CommentsService {
 
   public async updateComment(id: string, dto: UpdateCommentDto) {
     const comment = await this.commentRepository.findById(id);
+    const updatingComment = Object.assign(comment, dto);
     if (!comment) {
       throw new Error(`Comment with id ${id} does not exist`);
     }
-    return this.commentRepository.update(id, comment);
+    return this.commentRepository.update(id, updatingComment);
   }
 
   public async deleteComment(id: string) {

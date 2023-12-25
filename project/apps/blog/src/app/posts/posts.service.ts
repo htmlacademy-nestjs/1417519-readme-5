@@ -49,10 +49,11 @@ export class PostsService {
 
   public async updatePost(id: string, dto: UpdatePostDto) {
     const post = await this.postsRepository.findById(id);
+    const updatingPost = Object.assign(post, dto);
     if (!post) {
       throw new Error(`Post with id ${id} does not exist`);
     }
-    return this.postsRepository.update(id, post);
+    return this.postsRepository.update(id, updatingPost);
   }
 
   public async deletePost(id: string) {

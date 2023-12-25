@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-
-export class CreateUserDto {
+import { User } from "@project/shared/app/types";
+export class CreateUserDto  implements Partial<User>{
 
   id?: string;
 

@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post } from '@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './blog-user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserRdo } from '../authentication/rdo/user.rdo';
+import { UserRdo } from './rdo/user.rdo';
 import { fillDto } from '@project/shared/helpers';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -44,6 +44,22 @@ export class UsersController {
     return fillDto(UserRdo, user.toPOJO());
   }
 
+  @Get('email/:email')
+  public async findOnebyEmail(@Param('email') email: string) {
+    const user = await this.usersService.findByEmail(email);
+    return fillDto(UserRdo, user.toPOJO());
+  }
+
+  @ApiResponse({
+    type: UpdateUserDto,
+    status: HttpStatus.OK,
+    description: 'Обновить данные пользователей',
+  })
+  @Patch(':id')
+  public async update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+    const user = await this.usersService.update(id, dto);
+    return fillDto(UserRdo, user.toPOJO());
+  }
 
   @ApiResponse({
     status: HttpStatus.OK,
