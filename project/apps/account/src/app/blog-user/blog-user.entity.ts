@@ -9,9 +9,7 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
   email: string;
   userName: string;
   avatar: string;
-  regDate: Date;
-  publicCount: number;
-  followersCount: number;
+
 
   constructor(user: AuthUser) {
     this.populate(user);
@@ -23,9 +21,6 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
       email: this.email,
       userName: this.userName,
       avatar: this.avatar,
-      regDate: this.regDate,
-      publicCount: this.publicCount,
-      followersCount: this.followersCount
     }
   }
 
@@ -33,9 +28,6 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
     this.email = data.email;
     this.userName = data.userName;
     this.avatar = data.avatar;
-    this.regDate = data.regDate;
-    this.publicCount = data.publicCount;
-    this.followersCount = data.followersCount;
   }
 
   public async setPassword(password: string): Promise<BlogUserEntity> {
@@ -46,5 +38,9 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
 
   public async comparePassword(password: string): Promise<boolean> {
     return compare(password, this.passwordHash);
+  }
+
+  static fromObject(data: AuthUser): BlogUserEntity {
+    return new BlogUserEntity(data);
   }
 }
