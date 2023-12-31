@@ -12,7 +12,6 @@ import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const GLOBAL_PREFIX = 'api';
-  const PORT = 3000;
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
