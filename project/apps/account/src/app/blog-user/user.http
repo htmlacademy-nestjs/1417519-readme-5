@@ -12,7 +12,7 @@ Content-Type: application/json
 ###
 
 # Update a user by id
-PATCH http://localhost:3000/api/blog-users/f5c3f806-7a3d-4cd0-873c-df78df92059e HTTP/1.1
+PATCH http://localhost:3000/api/blog-users/65925a35aef11c5b4ecc0e45 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 ###
 # Get user by ID
-GET http://localhost:3000/api/blog-users/77facb54-ccf3-4fc1-9de6-4ff3049dec64 HTTP/1.1
+GET http://localhost:3000/api/blog-users/65925a35aef11c5b4ecc0e45 HTTP/1.1
 
 ###
 

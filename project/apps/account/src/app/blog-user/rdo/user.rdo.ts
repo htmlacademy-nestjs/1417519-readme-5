@@ -35,7 +35,7 @@ export class UserRdo {
     example: '1981-03-12'
   })
   @Expose()
-  public regDate: string;
+  public createdAt: string;
 
 
   @ApiProperty({

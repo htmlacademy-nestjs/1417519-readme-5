@@ -4,7 +4,4 @@ export interface User {
   email: string;
   userName: string;
   avatar: string;
-  regDate: Date;
-  publicCount: number;
-  followersCount: number;
 }

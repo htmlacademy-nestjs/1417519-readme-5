@@ -45,12 +45,13 @@ export class UsersService {
   }
 
   public async findOne(id: string) {
-    const user = await this.blogUserRepository.findById(id);
+    const existUser = await this.blogUserRepository.findById(id);
 
-    if (!user) {
-      throw new NotFoundException('User with id not found');
+    if (! existUser) {
+      throw new NotFoundException(`User with id ${id} not found`);
     }
-    return user;
+
+    return existUser;
   }
 
   public async findByEmail(email: string) {
