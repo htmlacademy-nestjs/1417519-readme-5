@@ -10,7 +10,6 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
   userName: string;
   avatar: string;
 
-
   constructor(user: AuthUser) {
     this.populate(user);
   }
@@ -21,6 +20,7 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
       email: this.email,
       userName: this.userName,
       avatar: this.avatar,
+      passwordHash: this.passwordHash,
     }
   }
 
@@ -28,6 +28,7 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
     this.email = data.email;
     this.userName = data.userName;
     this.avatar = data.avatar;
+    this.passwordHash = data.passwordHash;
   }
 
   public async setPassword(password: string): Promise<BlogUserEntity> {
@@ -40,7 +41,7 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
     return compare(password, this.passwordHash);
   }
 
-  static fromObject(data: AuthUser): BlogUserEntity {
+    static fromObject(data: AuthUser): BlogUserEntity {
     return new BlogUserEntity(data);
   }
 }
