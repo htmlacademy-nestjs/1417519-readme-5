@@ -9,3 +9,75 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model VideoPost {
+  postId           String     @id @default(uuid())
+  authorId         String
+  originalAuthorId String?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  publickName      String
+  tags             String?
+  postStatus       PostStatus @default(DRAFT)
+}
+
+model TextPost {
+  postId           String     @id @default(uuid())
+  authorId         String
+  originalAuthorId String?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  publickName      String
+  publickAnnounce  String
+  publickText      String
+  tags             String?
+  postStatus       PostStatus @default(DRAFT)
+}
+
+model quotePost {
+  postId           String     @id @default(uuid())
+  authorId         String
+  originalAuthorId String?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  publickText      String
+  quoteAuthor      String
+  tags             String?
+  postStatus       PostStatus @default(DRAFT)
+}
+
+model photoPost {
+  postId           String     @id @default(uuid())
+  authorId         String
+  originalAuthorId String?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  photo            String
+  tags             String?
+  postStatus       PostStatus @default(DRAFT)
+}
+
+model linkPost {
+  postId           String     @id @default(uuid())
+  authorId         String
+  originalAuthorId String?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  link             String
+  tags             String?
+  postStatus       PostStatus @default(DRAFT)
+}
+
+model Comments {
+  commentId  String     @id @default(uuid())
+  postId     String
+  text       String
+  authorId   String
+  createdAt  DateTime   @default(now())
+  postStatus PostStatus @default(DRAFT)
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
