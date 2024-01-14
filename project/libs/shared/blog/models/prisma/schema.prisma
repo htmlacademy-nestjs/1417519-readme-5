@@ -11,70 +11,81 @@ datasource db {
 }
 
 model VideoPost {
-  postId           String     @id @default(uuid())
-  authorId         String
-  originalAuthorId String?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  publickName      String
+  postId           String     @id @default(uuid()) @map("post_id")
+  authorId         String     @map("author_id")
+  originalAuthorId String?    @map("original_author_id")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
+  publicName      String     @map("public_name")
   tags             String?
-  postStatus       PostStatus @default(DRAFT)
+  postStatus       PostStatus @default(DRAFT) @map("post_status")
+
+  @@map("video_post")
 }
 
 model TextPost {
-  postId           String     @id @default(uuid())
-  authorId         String
-  originalAuthorId String?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  publickName      String
-  publickAnnounce  String
-  publickText      String
+  postId           String     @id @default(uuid()) @map("post_id")
+  authorId         String     @map("author_id")
+  originalAuthorId String?    @map("original_author_id")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
+  publicName      String     @map("public_name")
+  publicAnnounce  String     @map("public_announce")
+  publicText      String     @map("public_text")
   tags             String?
-  postStatus       PostStatus @default(DRAFT)
+  postStatus       PostStatus @default(DRAFT) @map("post_status")
+
+  @@map("text_post")
 }
 
 model quotePost {
-  postId           String     @id @default(uuid())
-  authorId         String
-  originalAuthorId String?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  publickText      String
-  quoteAuthor      String
+  postId           String     @id @default(uuid()) @map("post_id")
+  authorId         String     @map("author_id")
+  originalAuthorId String?    @map("original_author_id")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
+  publicText      String     @map("public_text")
+  quoteAuthor      String     @map("quote_author")
   tags             String?
-  postStatus       PostStatus @default(DRAFT)
+  postStatus       PostStatus @default(DRAFT) @map("post_status")
+
+  @@map("quote_post")
 }
 
 model photoPost {
-  postId           String     @id @default(uuid())
-  authorId         String
-  originalAuthorId String?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
+  postId           String     @id @default(uuid()) @map("post_id")
+  authorId         String     @map("author_id")
+  originalAuthorId String?    @map("original_author_id")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
   photo            String
   tags             String?
-  postStatus       PostStatus @default(DRAFT)
+  postStatus       PostStatus @default(DRAFT) @map("post_status")
+
+  @@map("photo_post")
 }
 
 model linkPost {
-  postId           String     @id @default(uuid())
-  authorId         String
-  originalAuthorId String?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
+  postId           String     @id @default(uuid()) @map("post_id")
+  authorId         String     @map("author_id")
+  originalAuthorId String?    @map("original_author_id")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
   link             String
   tags             String?
-  postStatus       PostStatus @default(DRAFT)
+  postStatus       PostStatus @default(DRAFT) @map("post_status")
+
+  @@map("link_post")
 }
 
 model Comments {
-  commentId  String     @id @default(uuid())
-  postId     String
+  commentId  String     @id @default(uuid()) @map("comment_id")
+  postId     String     @map("post_id")
   text       String
-  authorId   String
-  createdAt  DateTime   @default(now())
-  postStatus PostStatus @default(DRAFT)
+  authorId   String     @map("author_id")
+  createdAt  DateTime   @default(now()) @map("created_at")
+
+  @@map("comments")
 }
 
 enum PostStatus {
