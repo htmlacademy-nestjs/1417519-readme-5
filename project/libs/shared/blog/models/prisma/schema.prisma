@@ -10,82 +10,68 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model VideoPost {
-  postId           String     @id @default(uuid()) @map("post_id")
+model Post {
+  id           String     @id @default(uuid()) @map("id")
   authorId         String     @map("author_id")
   originalAuthorId String?    @map("original_author_id")
   createdAt        DateTime   @default(now()) @map("created_at")
   updatedAt        DateTime   @updatedAt @map("updated_at")
-  publicName      String     @map("public_name")
-  tags             String?
-  postStatus       PostStatus @default(DRAFT) @map("post_status")
-
-  @@map("video_post")
-}
-
-model TextPost {
-  postId           String     @id @default(uuid()) @map("post_id")
-  authorId         String     @map("author_id")
-  originalAuthorId String?    @map("original_author_id")
-  createdAt        DateTime   @default(now()) @map("created_at")
-  updatedAt        DateTime   @updatedAt @map("updated_at")
-  publicName      String     @map("public_name")
-  publicAnnounce  String     @map("public_announce")
-  publicText      String     @map("public_text")
-  tags             String?
-  postStatus       PostStatus @default(DRAFT) @map("post_status")
-
-  @@map("text_post")
-}
-
-model quotePost {
-  postId           String     @id @default(uuid()) @map("post_id")
-  authorId         String     @map("author_id")
-  originalAuthorId String?    @map("original_author_id")
-  createdAt        DateTime   @default(now()) @map("created_at")
-  updatedAt        DateTime   @updatedAt @map("updated_at")
-  publicText      String     @map("public_text")
+  postStatus       PostStatus @default(PUBLISHED) @map("post_status")
+  postType         PostType @default(TEXT)
+  publicName       String     @map("public_name")
+  publicAnnounce   String     @map("public_announce")
+  publicText       String     @map("public_text")
   quoteAuthor      String     @map("quote_author")
-  tags             String?
-  postStatus       PostStatus @default(DRAFT) @map("post_status")
-
-  @@map("quote_post")
-}
-
-model photoPost {
-  postId           String     @id @default(uuid()) @map("post_id")
-  authorId         String     @map("author_id")
-  originalAuthorId String?    @map("original_author_id")
-  createdAt        DateTime   @default(now()) @map("created_at")
-  updatedAt        DateTime   @updatedAt @map("updated_at")
   photo            String
-  tags             String?
-  postStatus       PostStatus @default(DRAFT) @map("post_status")
-
-  @@map("photo_post")
-}
-
-model linkPost {
-  postId           String     @id @default(uuid()) @map("post_id")
-  authorId         String     @map("author_id")
-  originalAuthorId String?    @map("original_author_id")
-  createdAt        DateTime   @default(now()) @map("created_at")
-  updatedAt        DateTime   @updatedAt @map("updated_at")
   link             String
-  tags             String?
-  postStatus       PostStatus @default(DRAFT) @map("post_status")
+  comments         Comment[]
+  likes            Like[]
+  tags             Tag[]
 
-  @@map("link_post")
+  @@index([authorId])
+  @@map("post")
 }
 
-model Comments {
+model Comment {
   commentId  String     @id @default(uuid()) @map("comment_id")
-  postId     String     @map("post_id")
   text       String
   authorId   String     @map("author_id")
   createdAt  DateTime   @default(now()) @map("created_at")
+  post       Post       @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  postId      String    @map("post_id")
 
+  @@index([postId])
   @@map("comments")
+}
+
+model Like {
+  ownerId   String   @map("owner_id")
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id],onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@id([postId, ownerId])
+  @@map("likes")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  text      String
+  post      Post[]
+
+  @@index([text])
+  @@map("tags")
+}
+
+enum PostType {
+  VIDEO
+  TEXT
+  QUOTE
+  PHOTO
+  LINK
 }
 
 enum PostStatus {
