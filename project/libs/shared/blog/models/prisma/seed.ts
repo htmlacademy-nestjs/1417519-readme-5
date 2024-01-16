@@ -89,3 +89,5 @@ export async function seed() {
     await client.$disconnect();
   }
 }
+
+seed();
