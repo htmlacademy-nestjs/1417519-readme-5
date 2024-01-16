@@ -12,19 +12,19 @@ datasource db {
 }
 
 model Post {
-  id           String     @id @default(uuid()) @map("id")
-  authorId         String     @map("author_id")
+  id               String     @id @default(uuid()) @map("id")
+  authorId         String?    @map("author_id")
   originalAuthorId String?    @map("original_author_id")
   createdAt        DateTime   @default(now()) @map("created_at")
   updatedAt        DateTime   @updatedAt @map("updated_at")
   postStatus       PostStatus @default(PUBLISHED) @map("post_status")
-  postType         PostType @default(TEXT)
-  publicName       String     @map("public_name")
-  publicAnnounce   String     @map("public_announce")
-  publicText       String     @map("public_text")
-  quoteAuthor      String     @map("quote_author")
-  photo            String
-  link             String
+  postType         PostType   @default(TEXT)
+  publicName       String?    @map("public_name")
+  publicAnnounce   String?    @map("public_announce")
+  publicText       String?     @map("public_text")
+  quoteAuthor      String?     @map("quote_author")
+  photo            String?
+  link             String?
   comments         Comment[]
   likes            Like[]
   tags             Tag[]
