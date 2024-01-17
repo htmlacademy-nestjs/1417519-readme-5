@@ -59,14 +59,13 @@ function getPosts(tags: Prisma.TagCreateInput[]): Prisma.PostCreateInput[] {
   ];
 }
 
-export async function seed() {
-  const client = new PrismaClient();
+export async function seed(prismaClient: PrismaClient) {
 
   try {
     const tags = getPostTags();
 
-    for(const tag of tags) {
-      await client.tag.upsert({
+    for (const tag of tags) {
+      await prismaClient.tag.upsert({
         where: { id: tag.id },
         update: {},
         create: tag
@@ -76,18 +75,19 @@ export async function seed() {
     const posts = getPosts(tags);;
 
     for (const post of posts) {
-      await client.post.upsert({
+      await prismaClient.post.upsert({
         where: { id: post.id },
         update: {},
         create: post
       });
     }
     console.info('Seeded successfully');
-  } catch ( error: unknown){
+  } catch (error: unknown) {
     console.error(error);
   } finally {
-    await client.$disconnect();
+    await prismaClient.$disconnect();
   }
 }
 
-seed();
+const client = new PrismaClient();
+seed(client);
