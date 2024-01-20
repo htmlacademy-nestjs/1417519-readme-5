@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "post" ALTER COLUMN "author_id" DROP NOT NULL,
+ALTER COLUMN "public_name" DROP NOT NULL,
+ALTER COLUMN "public_announce" DROP NOT NULL,
+ALTER COLUMN "public_text" DROP NOT NULL,
+ALTER COLUMN "quote_author" DROP NOT NULL,
+ALTER COLUMN "photo" DROP NOT NULL,
+ALTER COLUMN "link" DROP NOT NULL;

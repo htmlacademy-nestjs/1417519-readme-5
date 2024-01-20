@@ -1,14 +1,12 @@
 import { PostComment } from '@project/shared/app/types';
 
 export class CommentEntity implements PostComment {
+  public id?: string;
+  public updatedAt?: Date;
+  public createdAt?: Date;
+  public ownerId?: string;
   public postId: string;
-  public id: string;
-  public commentText: string;
-  public authorId: string;
-  public authorName: string;
-  public authorLastName: string;
-  public authorEmail: string;
-  public createdDate: Date;
+  public message: string;
 
   constructor(comment: PostComment) {
     this.populate(comment);
@@ -18,23 +16,17 @@ export class CommentEntity implements PostComment {
     return {
       postId: this.postId,
       id: this.id,
-      commentText: this.commentText,
-      authorId: this.authorId,
-      authorName: this.authorName,
-      authorLastName: this.authorLastName,
-      authorEmail: this.authorEmail,
-      createdDate: this.createdDate
+      message: this.message,
+      ownerId: this.ownerId,
+      createdAt: this.createdAt
     }
   }
 
   public populate(data: PostComment): void {
     this.postId = data.postId;
     this.id = data.id;
-    this.commentText = data.commentText;
-    this.authorId = data.authorId;
-    this.authorName = data.authorName;
-    this.authorLastName = data.authorLastName;
-    this.authorEmail = data.authorEmail;
-    this.createdDate = data.createdDate;
+    this.message = data.message;
+    this.ownerId = data.ownerId;
+    this.createdAt = data.createdAt;
   }
 }

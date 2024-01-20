@@ -4,11 +4,13 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import dayjs from 'dayjs';
 import { PostEntity } from './post.entity';
+import { PrismaClientService } from '@project/shared/blog/models';
 
 @Injectable()
 export class PostsService {
   constructor(
-    private readonly postsRepository: PostsRepository,
+    private readonly prismaService: PrismaClientService,
+    private readonly postsRepository: PostsRepository
   ) {}
 
   public async createPost(dto: CreatePostDto) {
@@ -35,7 +37,7 @@ export class PostsService {
   }
 
   public async getPosts() {
-    return this.postsRepository.findAll();
+    return this.prismaService.post.findMany;
   }
 
   public async getPostById(id: string) {

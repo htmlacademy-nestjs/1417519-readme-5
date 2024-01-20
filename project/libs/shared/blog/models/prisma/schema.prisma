@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../../../../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id               String     @id @default(uuid()) @map("id")
+  authorId         String?    @map("author_id")
+  originalAuthorId String?    @map("original_author_id")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
+  postStatus       PostStatus @default(PUBLISHED) @map("post_status")
+  postType         PostType   @default(TEXT)
+  publicName       String?    @map("public_name")
+  publicAnnounce   String?    @map("public_announce")
+  publicText       String?     @map("public_text")
+  quoteAuthor      String?     @map("quote_author")
+  photo            String?
+  link             String?
+  comments         Comment[]
+  likes            Like[]
+  tags             Tag[]
+
+  @@index([authorId])
+  @@map("post")
+}
+
+model Comment {
+  commentId  String     @id @default(uuid()) @map("comment_id")
+  text       String
+  authorId   String     @map("author_id")
+  createdAt  DateTime   @default(now()) @map("created_at")
+  post       Post       @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  postId      String    @map("post_id")
+
+  @@index([postId])
+  @@map("comments")
+}
+
+model Like {
+  ownerId   String   @map("owner_id")
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id],onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@id([postId, ownerId])
+  @@map("likes")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  text      String
+  post      Post[]
+
+  @@index([text])
+  @@map("tags")
+}
+
+enum PostType {
+  VIDEO
+  TEXT
+  QUOTE
+  PHOTO
+  LINK
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
